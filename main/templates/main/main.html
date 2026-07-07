@@ -1,12 +1,102 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+<!--
+Крч нужно чтоб все теги хранились в бд. Чтоб показвывалось на главной Hot tages. 
+Нужно up часть доделать и продумать функционал. Тогда получается будут теги и темы.
+Типо тег это допустим #python #gui #django а тема это guide. Ну как то так понял да. 
+И темы там разные глбокие и обширные их как тегов может быть несколько 
+но силшком много нельзя скажем больше 3. Типо основная RL и смежная DL и психология и получается DRL. 
+надо будет продумать эт все
+-->
 <head>
+    <!-- You'v gone with the thick rims 
+         Wake ne when the bell rings
+    -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
     <title>Main</title>
 </head>
 <body>
-    <h1>LiveBook</h1>
-    <h3>Place wheres saves your dreams.</h3>
+    <div class="roof">
+        <h1>The LiveBook</h1>
+        <div class="list">
+            <div class="item">
+                <p>New post</p>
+            </div> 
+            <div class="item">
+                <p>New post</p>
+            </div>
+            <div class="item">
+                <p>New post</p>
+            </div>
+        </div>
+    </div>
+
+    <center>
+        <div class="mase">
+            <div> 
+                <h2>The place where your dreams come true.</h2>
+                <p>Find you really love theme.</p>
+            </div>
+
+            <div>
+                <h2>Hot tags </h2>
+                <div>
+                    <p></p>
+                </div>
+            </div>
+
+            <div class="posts">
+                {% for post in posts %}
+                    <div class="post-card">
+                        <h3>{{ post.title }}</h3>
+                        <p>{{post.deep}}</p> 
+                        <p>{{post.date|date:"H:i d.m.y"}}</p>
+                        <p class="tags">{{ post.tags }}</p>
+                    </div>
+                {% endfor%}
+            </div>
+            
+        </div>
+    </center>
+
+    <div class="floor">
+        <!-- When nobody believe in you
+             i create this mydreamlive place -->
+        <p>With love from The Kadiev studio</p>
+    </div>
+
+    <div class="star-trail"></div>
+    <script>
+
+        document.addEventListener('mousemove', function(e) {
+            const trail = document.querySelector('.star-trail');
+            const star = document.createElement('div');
+            star.classList.add('star');
+
+            const size = 4 + Math.random() * 8;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.left = (e.clientX - size / 2) + 'px';
+            star.style.top = (e.clientY - size / 2) + 'px';
+
+            // 🔥 Задержка перед появлением
+            star.style.opacity = '0';
+
+            trail.appendChild(star);
+
+            // ⏳ Появляем через 50 мс
+            setTimeout(() => {
+                star.style.opacity = '1';
+                star.style.transition = 'opacity 0.2s';
+            }, 60000000);
+
+            setTimeout(() => {
+                star.remove();
+            }, 700);
+        });
+    </script>
 </body>
 </html>
